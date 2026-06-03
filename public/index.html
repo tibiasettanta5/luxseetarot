@@ -1,1 +1,19 @@
+async function richiediLettura() {
+  const dati = { 
+    name: "Mario", 
+    birthDate: "01/01/1990", 
+    question: "Cosa mi riserva il futuro?", 
+    cards: ["Matto", "Mago", "Luna"] 
+  };
 
+  const response = await fetch('/api/reading', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dati)
+  });
+
+  const json = await response.json();
+  if (json.ok) {
+    document.getElementById('risultato').innerHTML = json.reading;
+  }
+}
