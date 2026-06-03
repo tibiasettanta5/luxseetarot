@@ -98,7 +98,7 @@ Grazie per avermi affidato la tua richiesta di lettura dei tarocchi. Comprendo q
     // Pulizia avanzata della stringa di risposta
     let reading = data.choices[0].message.content.trim();
     reading = reading.replace(/—/g, ",");      // Rimuovi trattini lunghi
-    reading = reading.replace(/\n\s*\n/g, ""); // Rimuovi spazi vuoti tra paragrafi
+    reading = reading.replace(/\n{3,}/g, "\n\n"); // Normalizza ma preserva i paragrafi
 
     return res.status(200).json({ ok: true, reading });
     
