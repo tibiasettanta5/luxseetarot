@@ -67,8 +67,9 @@ Grazie per avermi affidato la tua richiesta di lettura dei tarocchi. Comprendo q
 
 8. Alla fine Scrivi una chiusura che:
     Trasmetta conforto, ispirazione e gratitudine al cliente.
-    Inviti gentilmente alla riflessione o all'azione.
-    Ringrazi il cliente per la fiducia.
+    Invita gentilmente alla riflessione o all'azione.
+    Non scrivere "scrivimi"
+    Ringrazia il cliente per la fiducia.
     Mantieni uno stile fluido e caloroso, con un tocco poetico ma naturale
     `.trim();
 
