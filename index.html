@@ -787,7 +787,26 @@
       .replace(/(^|[\s(])_(?!\s)([^_\n]+?)_(?=[\s.,;:!?)]|$)/g,'$1<em>$2</em>');
   }
   function renderMarkdown(text){
-    var src = escapeHtml(String(text||'').replace(/\r\n/g,'\n')).trim();
+    var raw = String(text||'').replace(/\r\n/g,'\n').trim();
+    // Fallback paragrafazione: se il backend ha rimosso le righe vuote
+    // e ci ritroviamo con un unico blocco, ricostruiamo i paragrafi.
+    if(!/\n\s*\n/.test(raw)){
+      if(raw.indexOf('\n') !== -1){
+        // singoli \n → trattali come separatori di paragrafo
+        raw = raw.split(/\n+/).map(function(s){return s.trim();}).filter(Boolean).join('\n\n');
+      } else {
+        // nessun newline: spezza ogni 2 frasi (. ! ? seguiti da Maiuscola)
+        var sentences = raw.match(/[^.!?]+[.!?]+["”»)]?\s*/g) || [raw];
+        var chunks=[], buf=[];
+        for(var s=0; s<sentences.length; s++){
+          buf.push(sentences[s].trim());
+          if(buf.length>=2){ chunks.push(buf.join(' ')); buf=[]; }
+        }
+        if(buf.length) chunks.push(buf.join(' '));
+        raw = chunks.join('\n\n');
+      }
+    }
+    var src = escapeHtml(raw);
     var lines = src.split('\n');
     var out=[], i=0;
     function flushPara(buf){
