@@ -428,7 +428,7 @@
       setTimeout(function(){ w.classList.add('flipped'); }, 1200 + i*1400);
     });
 
-    fetch('/api/public/reading', {
+    fetch('/api/reading', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
